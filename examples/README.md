@@ -31,7 +31,7 @@ INFO, VF::main, count of variant containing positions = 3771
 INFO, VF::main, count of variants = 3963
 INFO, VF::main, starting timer
 INFO, VF::main, time taken by variant selection algorithm = 0.000280911 seconds
-INFO, VF::main, count of variant containing positions = 2132
+INFO, VF::main, count of variant containing positions retained = 2132
 INFO, VF::main, count of variants retained = 2232
 ```
 * Minimise count of variants in variation graph
@@ -50,7 +50,7 @@ INFO, VF::main, Gurobi solver starting
 Academic license - for non-commercial use only
 Optimal objective: 1831
 INFO, VF::main, time taken by variant selection algorithm = 0.661689 seconds
-INFO, VF::main, count of variant containing positions = 2132
+INFO, VF::main, count of variant containing positions retained = 2132
 INFO, VF::main, count of variants retained = 2132
 ```
 
@@ -69,6 +69,6 @@ INFO, VF::main, starting timer
 INFO, VF::calculateLeftMostReachable, computing window ranges...
 INFO, VF::calculateLeftMostReachable, done
 INFO, VF::main, time taken by variant selection algorithm = 6.43583 seconds
-INFO, VF::main, count of variant containing positions = 1310
+INFO, VF::main, count of variant containing positions retained = 1310
 INFO, VF::main, count of variants retained = 1356
 ```

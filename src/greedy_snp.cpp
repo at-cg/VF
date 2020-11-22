@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
   std::chrono::duration<double> wctduration = (std::chrono::system_clock::now() - tStart);
   std::cout<< "INFO, VF::main, time taken by variant selection algorithm = " << wctduration.count() << " seconds" << "\n"; 
 
-  std::cout<< "INFO, VF::main, count of variant containing positions = " << std::count(R.begin(), R.end(), true) << "\n";
+  std::cout<< "INFO, VF::main, count of variant containing positions retained = " << std::count(R.begin(), R.end(), true) << "\n";
 
   for (int i = 0; i < n; i++)
     if (R[i]) new_c.push_back(c[i]);

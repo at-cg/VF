@@ -21,6 +21,7 @@ make
 After a successful compilation, expect three executables `greedy_snp`, `lp_snp`, `greedy_sv_indels` in a directory named `build`. 
 
 ## Usage
+The three executables implement different algorithms to achieve variant graph size reduction, but they all have a similar interface.
 ```
 SYNOPSIS
         greedy_snp -a <alpha> -d <delta> -vcf <file> -chr <id>
@@ -35,7 +36,7 @@ OPTIONS
         <id>        chromosome id (e.g., 1 or chr1), make it consistent with vcf file
 ```
 
-A few [example runs](examples) are described for user's reference. In practice, α should be a function of read lengths whereas δ is determined based on sequencing errors and error-tolerance of read-to-graph mapping algorithms. NOTE: At runtime, `lp_snp` executable might complain if you don't have a valid Gurobi license file. It is straight-forward and free to get one for academic use [here](https://www.gurobi.com/downloads/end-user-license-agreement-academic).
+A few [example runs](examples) are made available for user's reference. In practice, α should be a function of read lengths whereas δ is determined based on sequencing errors and error-tolerance of read-to-graph mapping algorithms. NOTE: At runtime, `lp_snp` executable might complain if you don't have a valid Gurobi license file. It is straight-forward and free to get one for academic use [here](https://www.gurobi.com/downloads/end-user-license-agreement-academic).
 
 ## Benchmark
 
