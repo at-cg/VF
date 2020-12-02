@@ -2,7 +2,7 @@ Examples
 ========================================================================
 ## Download human genome variant files
 
-Download [1KG Phase 3 VCF files](https://www.internationalgenome.org/data) from  `ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/`. Here we will use mitochondrial chromosome as one of the examples.
+Download [1KG Phase 3 VCF files](https://www.internationalgenome.org/data) from [here](http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/). Here we will use mitochondrial chromosome as one of the examples.
 ```
 wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/ALL.chrMT.phase3_callmom-v0_4.20130502.genotypes.vcf.gz
 gzip -d ALL.chrMT.phase3_callmom-v0_4.20130502.genotypes.vcf.gz
@@ -25,7 +25,7 @@ INFO, VF::parseandSave, alpha = 1000
 INFO, VF::parseandSave, delta = 100
 INFO, VF::parseandSave, vcf file = 1KG_chrMT.vcf
 INFO, VF::parseandSave, chromosome id = MT
-INFO, VF::main, extracting SNPs from vcf file using command = /global/project/projectdirs/nguest/cjain7/projects/vf/software/VF/build/vcftools-0.1.16/bin/vcftools --vcf 1KG_chrMT.vcf --chr MT --counts --remove-indels --out .VF.7543.txt 2>/dev/null
+INFO, VF::main, extracting SNPs from vcf file using command = VF/build/vcftools-0.1.16/bin/vcftools --vcf 1KG_chrMT.vcf --chr MT --counts --remove-indels --out .VF.7543.txt 2>/dev/null
 INFO, VF::main, vcftools finished
 INFO, VF::main, count of variant containing positions = 3771
 INFO, VF::main, count of variants = 3963

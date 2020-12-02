@@ -24,8 +24,8 @@ After a successful compilation, expect three executables `greedy_snp`, `lp_snp`,
 The three executables implement different algorithms to achieve variant graph size reduction, but they all have a similar interface.
 ```
 SYNOPSIS
-        greedy_snp -a <alpha> -d <delta> -vcf <file> -chr <id>
-        lp_snp -a <alpha> -d <delta> -vcf <file> -chr <id>
+        greedy_snp       -a <alpha> -d <delta> -vcf <file> -chr <id>
+        lp_snp           -a <alpha> -d <delta> -vcf <file> -chr <id>
         greedy_sv_indels -a <alpha> -d <delta> -vcf <file> -chr <id>
 
 

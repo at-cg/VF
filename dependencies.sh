@@ -28,7 +28,7 @@ echo "gurobi download and compilation finished"
 #check if appropriate files exist
 if [ ! -f gurobi910/linux64/include/gurobi_c++.h ]; then echo "gurobi download failed"; fi
 if [ ! -f gurobi910/linux64/src/build/libgurobi_c++.a ]; then echo "gurobi compilation failed"; fi
-if [ ! -f vcftools/bin/vcftools ]; then echo "vcftools compilation failed"; fi
+if [ ! -f vcftools-0.1.16/bin/vcftools ]; then echo "vcftools compilation failed"; fi
 
 echo "Looks like it went okay, now run <make>"
 #Next, run make
