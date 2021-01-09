@@ -9,6 +9,7 @@ struct Parameters
   int delta;
   std::string vcffile;
   std::string chr;
+  bool pos;
 };
 
 inline bool exists (const std::string& filename) {
@@ -27,7 +28,8 @@ void parseandSave(int argc, char** argv, Parameters &param)
      clipp::required("-a") & clipp::value("alpha", param.alpha).doc("path length in variation graph (e.g., 500)"),
      clipp::required("-d") & clipp::value("delta", param.delta).doc("differences allowed (e.g., 10)"),
      clipp::required("-vcf") & clipp::value("file", param.vcffile).doc("uncompressed vcf file (something.vcf)"),
-     clipp::required("-chr") & clipp::value("id", param.chr).doc("chromosome id (e.g., 1 or chr1), make it consistent with vcf file")
+     clipp::required("-chr") & clipp::value("id", param.chr).doc("chromosome id (e.g., 1 or chr1), make it consistent with vcf file"),
+     clipp::option("--pos").set(param.pos).doc("setting for only ILP-SV method: minimize variant loci rather than variation count")
     );
 
   if(!clipp::parse(argc, argv, cli))
