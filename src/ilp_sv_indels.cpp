@@ -10,6 +10,7 @@
 #include <numeric>
 #include <cassert>
 #include <unordered_map>
+#include "ext/prettyprint.hpp"
 #include "common.hpp"
 #include "gurobi_c++.h"
 
@@ -265,6 +266,12 @@ int main(int argc, char **argv) {
 
     // Set objective
     GRBLinExpr obj = 0;
+
+    if (parameters.pos)
+        std::cout << "INFO, VF::main, ILP solver will attempt to minimize variant positions" << "\n";
+    else
+        std::cout << "INFO, VF::main, ILP solver will attempt to minimize count of variants " << "\n";
+
     for (int i = 0; i < n; i++)
     {
       if (parameters.pos)
@@ -284,7 +291,7 @@ int main(int argc, char **argv) {
       auto leftMostVariantPos_it = std::upper_bound (svpos_u.begin(), svpos_u.end(), reach[i]);
       auto leftMostVariantPos_index = leftMostVariantPos_it - svpos_u.begin();
       for (int j = i; j >= leftMostVariantPos_index; j--)
-        lhs += penalty[i] * x[j];
+        lhs += penalty[j] * x[j];
 
       model.addConstr(lhs , GRB_LESS_EQUAL, 1.0 * parameters.delta);
       //this adds each contraint row of A.x <= b one by one
@@ -297,7 +304,7 @@ int main(int argc, char **argv) {
       std::cout << "Optimal objective: " << objval << std::endl;
     } 
 
-    // To store SNP positions retained
+    // To store variant positions retained
     for(int i =0; i < n; i++){
       if(x[i].get(GRB_DoubleAttr_X) < 0.5)
         R[i] = true;

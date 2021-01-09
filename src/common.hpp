@@ -22,6 +22,8 @@ inline bool exists (const std::string& filename) {
  */
 void parseandSave(int argc, char** argv, Parameters &param)
 {
+    param.pos = false; //default
+
   //define all arguments
   auto cli = 
     (

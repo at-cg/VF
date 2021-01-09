@@ -10,6 +10,7 @@
 #include <numeric>
 #include <cassert>
 #include <unordered_map>
+#include "ext/prettyprint.hpp"
 #include "common.hpp"
 
 /********* Helper functions ******/
