@@ -282,5 +282,7 @@ int main(int argc, char **argv) {
   for (std::size_t i = 0; i < n; i++) if(R[i]) count_variants_retained += c[i]; 
   std::cout<< "INFO, VF::main, count of variants retained = " << count_variants_retained << "\n";
 
+  printVariantGapStats (R, svpos_u);
+
   return 0;
 }

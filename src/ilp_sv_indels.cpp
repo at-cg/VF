@@ -211,7 +211,7 @@ int main(int argc, char **argv) {
 
   //parse command line arguments
   Parameters parameters;
-  parseandSave(argc, argv, parameters);
+  parseandSave_ILP(argc, argv, parameters);
 
   //*********************************************************
   // Reading from file to store c
@@ -333,6 +333,7 @@ int main(int argc, char **argv) {
   int count_variants_retained=0;
   for (std::size_t i = 0; i < n; i++) if(R[i]) count_variants_retained += c[i]; 
   std::cout<< "INFO, VF::main, count of variants retained = " << count_variants_retained << "\n";
+  printVariantGapStats (R, svpos_u);
 
   return 0;
 }

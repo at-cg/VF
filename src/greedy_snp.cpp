@@ -104,6 +104,7 @@ int main(int argc, char **argv) {
     if (R[i]) new_c.push_back(c[i]);
 
   std::cout<< "INFO, VF::main, count of variants retained = " << std::accumulate(new_c.begin(), new_c.end(), 0) << "\n";
+  printVariantGapStats (R, p);
 
   return 0;
 }
