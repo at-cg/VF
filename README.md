@@ -8,6 +8,7 @@ This is an open-source prototype software implementation of our algorithms for v
 - [vcftools](https://vcftools.github.io/)
 - [Gurobi](https://www.gurobi.com)
 - [clipp](https://github.com/muellan/clipp)
+- [cxx-prettyprint](https://github.com/louisdx/cxx-prettyprint)
 
 ## Installation
 The above dependencies can be handled by running script `dependencies.sh`.
