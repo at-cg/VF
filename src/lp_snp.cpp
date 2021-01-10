@@ -49,6 +49,10 @@ int main(int argc, char **argv) {
     }
   }
 
+  //keep only one record per loci
+  ignoreDuplicateSNPrecords(p, c);
+  assert (std::is_sorted(p.begin(), p.end()));
+
   cmd = "rm -f " + tmp_file + "*";
   std::system(cmd.c_str()); //delete tmp file
   if (p.size() == 0)
