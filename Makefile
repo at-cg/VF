@@ -1,7 +1,7 @@
 GUROBI_INSTALL=$(shell pwd)/build/gurobi910/linux64
 VCFTOOLS_INSTALL=$(shell pwd)/build/vcftools-0.1.16/bin/vcftools
 TARGET_DIR=$(shell pwd)/build
-CPPFLAGS= -g -std=c++11 
+CPPFLAGS= -g -std=c++11 -DNDEBUG -O3 
 
 all:
 	mkdir -p build
