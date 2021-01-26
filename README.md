@@ -42,7 +42,7 @@ A few [example runs](examples) are made available for user's reference. In pract
 
 ## Benchmark
 
-We evaluated the magnitude of graph reduction achieved in human chromosome variation graphs using VF (v1.0) with multiple α and δ parameter values corresponding to short and long-read resequencing characteristics. When our algorithm is run with parameter settings amenable to long-read mapping (α=10 kbp, δ=1000), 99.99% SNPs and 69% indel structural variants could be safely excluded from human chromosome 1 variation graph.
+We evaluated the magnitude of graph reduction achieved in human chromosome variation graphs using VF (v1.0) with multiple α and δ parameter values corresponding to short and long-read resequencing characteristics. When our algorithm is run with parameter settings amenable to long-read mapping (α=10 kbp, δ=1000), 99.99% SNPs and 73% indel structural variants could be safely excluded from human chromosome 1 variation graph.
 
 ## Publications
 
