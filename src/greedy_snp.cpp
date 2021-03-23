@@ -18,6 +18,7 @@ int main(int argc, char **argv) {
 
   //*********************************************************
   // Extract SNPs and allele count from VCF
+  // seed random generator by time in seconds (this may create issue if two instances are launched at the same time)
   srand(time(0)); int random = rand() % 10000;  
   std::string tmp_file = ".VF." + std::to_string(random) + ".txt";
   std::string cmd = std::string(TOSTRING(VCFTOOLSPATH)) + " --vcf " + parameters.vcffile + " --chr " + parameters.chr + " --counts --remove-indels --out " + tmp_file + " 2>/dev/null";

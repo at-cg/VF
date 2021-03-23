@@ -21,6 +21,7 @@
 void parseVCF_indel (const std::string &vcf_file, const std::string &chromosomeId, std::vector<int> &indelpos, std::vector<int> &indellen)
 {  
   // Extract indels from VCF
+  // seed random generator by time in seconds (this may create issue if two instances are launched at the same time)
   srand(time(0)); int random = rand() % 10000;  
   std::string tmp_file = ".VF." + std::to_string(random) + ".txt";
   //the following command assumes that vcf record will contain "VT=INDEL" for indel variants
