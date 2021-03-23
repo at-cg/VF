@@ -41,7 +41,7 @@ OPTIONS
         --pos       set objective to minimize variation positions rather than variant count
 ```
 
-A few [example runs](examples) are made available for user's reference. In practice, α should be a function of read lengths whereas δ is determined based on sequencing errors and error-tolerance of read-to-graph mapping algorithms. NOTE: At runtime, `lp_snp` and `ilp_sv_indels` executables might complain if you don't have a valid Gurobi license file. It is straight-forward and free to get one for academic use [here](https://www.gurobi.com/downloads/end-user-license-agreement-academic).
+A few [example runs](examples) are made available for user's reference. In practice, α should be a function of read lengths whereas δ is determined based on sequencing errors and error-tolerance of read-to-graph mapping algorithms. NOTE: At runtime, `lp_snp` and `ilp_sv_indels` executables might complain if you don't have a valid Gurobi license file. It is straight-forward and free to get one for academic use [here](https://www.gurobi.com/downloads/end-user-license-agreement-academic). If you are using a shared HPC-cluster resource, Gurobi may be available as a module.
 
 ## Benchmark
 
