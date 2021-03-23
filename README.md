@@ -1,7 +1,7 @@
 VF
 ========================================================================
 
-This is an open-source prototype software implementation of our algorithms for variant filtering in variation graphs. Its purpose is to reduce graph size while preserving subsequent mapping accuracy. The graph size reduction naturally benefits read-to-graph mapping algorithms. The intuition of the proposed graph reduction framework is following. Consider a complete variation graph constructed from a set of given haplotypes. Any substring of a haplotype has a corresponding path in the complete variation graph. Not including some variants will introduce errors in the corresponding paths. If the number of such errors is matched with the error tolerance built into sequence-to-graph mapping algorithms, the same identical paths can still be found. Mathematically, this problem is phrased in terms of minimizing variation graph size subject to preserving paths of length α with at most δ differences. See our [preprint](https://doi.org/10.1101/2021.02.02.429378) for more details. 
+This is an open-source prototype software implementation of our algorithms for variant filtering in variation graphs. Its purpose is to reduce graph size while preserving subsequent mapping accuracy. The graph size reduction naturally benefits read-to-graph mapping algorithms. The intuition of the proposed graph reduction framework is following. Consider a complete variation graph constructed from a set of given haplotypes. Any substring of a haplotype has a corresponding path in the complete variation graph. Not including some variants will introduce errors in the corresponding paths. If the number of such errors is matched with the error tolerance built into sequence-to-graph mapping algorithms, the same identical paths can still be found. Mathematically, this problem is phrased in terms of minimizing variation graph size subject to preserving paths of length α with at most δ differences. See our [preprint](https://www.doi.org) for more details. 
 
 ## Dependencies
 - A C++ compiler with c++11 support, e.g., GNU g++ (version 5+)
@@ -19,16 +19,18 @@ cd VF
 make
 ```
 
-After a successful compilation, expect four executables `greedy_snp`, `lp_snp`, `greedy_sv_indels`, `ilp_sv_indels` in a directory named `build`.
+After a successful compilation, expect four executables `greedy_snp`, `lp_snp`, `greedy_snp_indels`, `ilp_snp_indels`, `greedy_sv`, `ilp_sv` in a directory named `build`.
 
 ## Usage
-The four executables implement different algorithms to achieve variant graph size reduction, but they all have a similar interface.
+All the executables implement a variety of algorithms to achieve variant graph size reduction, but they all have a similar interface.
 ```
 SYNOPSIS
-        greedy_snp       -a <alpha> -d <delta> -vcf <file> -chr <id>
-        lp_snp           -a <alpha> -d <delta> -vcf <file> -chr <id>
-        greedy_sv_indels -a <alpha> -d <delta> -vcf <file> -chr <id>
-        ilp_sv_indels    -a <alpha> -d <delta> -vcf <file> -chr <id> [--pos]
+        greedy_snp        -a <alpha> -d <delta> -vcf <file> -chr <id>
+        lp_snp            -a <alpha> -d <delta> -vcf <file> -chr <id>
+        greedy_snp_indels -a <alpha> -d <delta> -vcf <file> -chr <id>
+        ilp_snp_indels    -a <alpha> -d <delta> -vcf <file> -chr <id> [--pos]
+        greedy_sv         -a <alpha> -d <delta> -vcf <file> -chr <id>
+        ilp_sv            -a <alpha> -d <delta> -vcf <file> -chr <id> [--pos]
 
 
 OPTIONS
@@ -46,4 +48,4 @@ We evaluated the magnitude of graph reduction achieved in human chromosome varia
 
 ## Publications
 
-- **Chirag Jain, Neda Tavakoli and Srinivas Aluru**. "[A variant selection framework for genome graphs](https://doi.org/10.1101/2021.02.02.429378)". *bioRxiv 2020*.
+- **Chirag Jain, Neda Tavakoli and Srinivas Aluru**. "[A Theoretical Framework for Variant Selection in Graph Representation of Genomes](https://www.doi.org)". *bioRxiv 2020*.

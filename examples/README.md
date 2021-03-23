@@ -17,7 +17,7 @@ mv EEE_SV-Pop_1.ALL.sites.20181204.vcf SV.vcf
 
 ## Graph reduction (only SNPs)
 
-Assuming you have four executables `greedy_snp`, `lp_snp`, `greedy_sv_indels` and `ilp_sv_indels` in build directory, you can use them in the following ways.
+Assuming you have executables `greedy_snp`, `lp_snp`, `greedy_sv` and `ilp_sv` in build directory, you can use them in the following ways.
 * Minimise positions containing variants in variation graph
 ```
 $ greedy_snp -a 1000 -d 100 -vcf 1KG_chrMT.vcf -chr MT
@@ -57,11 +57,11 @@ INFO, VF::printVariantGapStats, before: (min, mean, max) = (0, 3, 49)
 INFO, VF::printVariantGapStats, after: (min, mean, max) = (0, 6, 350)
 ```
 
-## Graph reduction (indel SVs)
+## Graph reduction (SVs)
 
-Executables `greedy_sv_indels` and `ilp_sv_indels` are useful for graph reduction when variation graph has SVs. In theory, the algorithm would also work for small indels, but its VCF file IO is yet to be engineered to be able to parse them.
+Executables `greedy_sv` and `ilp_sv` are useful for graph reduction when variation graph has SVs. Note that only insertion and deletion SVs are read from the input vcf file. Support for other type of SVs will be added in future.
 ```
-$ greedy_sv_indels -a 1000 -d 100 -vcf SV.vcf -chr chr21
+$ greedy_sv -a 1000 -d 100 -vcf SV.vcf -chr chr21
 INFO, VF::parseandSave, alpha = 1000
 INFO, VF::parseandSave, delta = 100
 INFO, VF::parseandSave, vcf file = SV.vcf
@@ -79,7 +79,7 @@ INFO, VF::printVariantGapStats, after: (min, mean, max) = (0, 25730, 541132)
 ```
 
 ```
-$ ilp_sv_indels -a 1000 -d 100 -vcf SV.vcf -chr chr21
+$ ilp_sv -a 1000 -d 100 -vcf SV.vcf -chr chr21
 INFO, VF::parseandSave, alpha = 1000
 INFO, VF::parseandSave, delta = 100
 INFO, VF::parseandSave, vcf file = SV.vcf
@@ -100,7 +100,7 @@ INFO, VF::printVariantGapStats, after: (min, mean, max) = (0, 25749, 541132)
 ```
 
 ```
-$ ilp_sv_indels -a 1000 -d 100 -vcf SV.vcf -chr chr21 --pos
+$ ilp_sv -a 1000 -d 100 -vcf SV.vcf -chr chr21 --pos
 INFO, VF::parseandSave, alpha = 1000
 INFO, VF::parseandSave, delta = 100
 INFO, VF::parseandSave, vcf file = SV.vcf
