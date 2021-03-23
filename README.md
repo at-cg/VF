@@ -19,7 +19,7 @@ cd VF
 make
 ```
 
-After a successful compilation, expect four executables `greedy_snp`, `lp_snp`, `greedy_snp_indels`, `ilp_snp_indels`, `greedy_sv`, `ilp_sv` in a directory named `build`.
+After a successful compilation, expect executables named as `greedy_snp`, `lp_snp`, `greedy_snp_indels`, `ilp_snp_indels`, `greedy_sv` and `ilp_sv` in a directory named `build`.
 
 ## Usage
 All the executables implement a variety of algorithms to achieve variant graph size reduction, but they all have a similar interface.
@@ -38,6 +38,7 @@ OPTIONS
         <delta>     differences allowed (e.g., 10)
         <file>      uncompressed vcf file (something.vcf)
         <id>        chromosome id (e.g., 1 or chr1), make it consistent with vcf file
+        --pos       set objective to minimize variation positions rather than variant count
 ```
 
 A few [example runs](examples) are made available for user's reference. In practice, α should be a function of read lengths whereas δ is determined based on sequencing errors and error-tolerance of read-to-graph mapping algorithms. NOTE: At runtime, `lp_snp` and `ilp_sv_indels` executables might complain if you don't have a valid Gurobi license file. It is straight-forward and free to get one for academic use [here](https://www.gurobi.com/downloads/end-user-license-agreement-academic).

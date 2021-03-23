@@ -67,7 +67,7 @@ void parseandSave_ILP(int argc, char** argv, Parameters &param)
      clipp::required("-d") & clipp::value("delta", param.delta).doc("differences allowed (e.g., 10)"),
      clipp::required("-vcf") & clipp::value("file", param.vcffile).doc("uncompressed vcf file (something.vcf)"),
      clipp::required("-chr") & clipp::value("id", param.chr).doc("chromosome id (e.g., 1 or chr1), make it consistent with vcf file"),
-     clipp::option("--pos").set(param.pos).doc("set objective to minimize positions rather than variation count")
+     clipp::option("--pos").set(param.pos).doc("set objective to minimize variation positions rather than variant count")
     );
 
   if(!clipp::parse(argc, argv, cli))
