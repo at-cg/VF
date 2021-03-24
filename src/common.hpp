@@ -220,7 +220,7 @@ void print_snp_indel_vcf (const std::vector<bool> &retained, const std::vector<i
   std::cout << "INFO, VF::print_snp_indel_vcf, written retained variant loci to " << tmp_file1 << "\n";
 
   std::string cmd = "cat " + param.vcffile + " | grep '^#' > " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
-  cmd = "cat " + param.vcffile + " | grep -vE '^#' | grep 'SNP\\INDEL' | awk -v chr=" + param.chr + " '$1 == chr {print $0}' >> " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+  cmd = "cat " + param.vcffile + " | grep -vE '^#' | grep 'SNP\\|INDEL' | awk -v chr=" + param.chr + " '$1 == chr {print $0}' >> " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
 
   cmd = "cat " + param.vcffile + " | grep '^#' > " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
   cmd = "cat " + param.vcffile + " | grep -vE '^#' > " + tmp_file2; std::cout << cmd << "\n"; std::system(cmd.c_str());
