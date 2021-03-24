@@ -77,7 +77,7 @@ void parseVCF_indel (const std::string &vcf_file, const std::string &chromosomeI
  */
 void parseVCF_SNP (const std::string &vcf_file, const std::string &chromosomeId, std::vector<int> &snppos, std::vector<int> &snpcount)
 {
-  srand(time(0)); int random = rand() % 10000;  
+  srand(time(0)); int random = rand() % 100000;  
   std::string tmp_file = ".VF." + std::to_string(random) + ".txt";
   std::string cmd = std::string(TOSTRING(VCFTOOLSPATH)) + " --vcf " + vcf_file + " --chr " + chromosomeId + " --counts --remove-indels --out " + tmp_file + " 2>/dev/null";
   std::cout << "INFO, VF::main, extracting SNPs from vcf file using command: " << cmd << std::endl;
