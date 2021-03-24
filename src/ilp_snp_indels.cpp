@@ -23,7 +23,7 @@ void parseVCF_indel (const std::string &vcf_file, const std::string &chromosomeI
 {  
   // Extract indels from VCF
   // seed random generator by time in seconds (this may create issue if two instances are launched at the same time)
-  srand(time(0)); int random = rand() % 10000;  
+  srand(time(0)); int random = rand() % 100000;  
   std::string tmp_file = ".VF." + std::to_string(random) + ".txt";
   //the following command assumes that vcf record will contain "VT=INDEL" for indel variants
   std::string cmd = " grep \"VT=INDEL\" " + vcf_file + " >  " + tmp_file;
@@ -424,5 +424,6 @@ int main(int argc, char **argv) {
   std::cout<< "INFO, VF::main, count of indel variants retained = " << count_variants_retained - count_snp_variants_retained << "\n";
 
   printVariantGapStats (R, pos_u);
+  if (parameters.prefix.length() > 0) print_snp_indel_vcf (R, pos_u, parameters);
   return 0;
 }

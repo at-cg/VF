@@ -283,6 +283,7 @@ int main(int argc, char **argv) {
   std::cout<< "INFO, VF::main, count of variants retained = " << count_variants_retained << "\n";
 
   printVariantGapStats (R, svpos_u);
+  if (parameters.prefix.length() > 0) print_SV_vcf (R, svpos_u, parameters);
 
   return 0;
 }

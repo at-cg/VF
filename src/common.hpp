@@ -10,6 +10,7 @@ struct Parameters
   int delta;
   std::string vcffile;
   std::string chr;
+  std::string prefix;
   bool pos;
 };
 
@@ -30,8 +31,9 @@ void parseandSave(int argc, char** argv, Parameters &param)
     (
      clipp::required("-a") & clipp::value("alpha", param.alpha).doc("path length in variation graph (e.g., 500)"),
      clipp::required("-d") & clipp::value("delta", param.delta).doc("differences allowed (e.g., 10)"),
-     clipp::required("-vcf") & clipp::value("file", param.vcffile).doc("uncompressed vcf file (something.vcf)"),
-     clipp::required("-chr") & clipp::value("id", param.chr).doc("chromosome id (e.g., 1 or chr1), make it consistent with vcf file")
+     clipp::required("-vcf") & clipp::value("file1", param.vcffile).doc("uncompressed vcf file (something.vcf)"),
+     clipp::required("-chr") & clipp::value("id", param.chr).doc("chromosome id (e.g., 1 or chr1), make it consistent with vcf file"),
+     clipp::option("--prefix") & clipp::value("file2", param.prefix).doc("filename to optionally save input and output variants")
     );
 
   if(!clipp::parse(argc, argv, cli))
@@ -45,6 +47,7 @@ void parseandSave(int argc, char** argv, Parameters &param)
   std::cout << "INFO, VF::parseandSave, delta = " << param.delta << std::endl;
   std::cout << "INFO, VF::parseandSave, vcf file = " << param.vcffile << std::endl;
   std::cout << "INFO, VF::parseandSave, chromosome id = " << param.chr << std::endl;
+  if (param.prefix.length() > 0) std::cout << "INFO, VF::parseandSave, prefix = " << param.prefix << std::endl;
 
   if (! exists(param.vcffile))
   {
@@ -65,8 +68,9 @@ void parseandSave_ILP(int argc, char** argv, Parameters &param)
     (
      clipp::required("-a") & clipp::value("alpha", param.alpha).doc("path length in variation graph (e.g., 500)"),
      clipp::required("-d") & clipp::value("delta", param.delta).doc("differences allowed (e.g., 10)"),
-     clipp::required("-vcf") & clipp::value("file", param.vcffile).doc("uncompressed vcf file (something.vcf)"),
+     clipp::required("-vcf") & clipp::value("file1", param.vcffile).doc("uncompressed vcf file (something.vcf)"),
      clipp::required("-chr") & clipp::value("id", param.chr).doc("chromosome id (e.g., 1 or chr1), make it consistent with vcf file"),
+     clipp::option("--prefix") & clipp::value("file2", param.prefix).doc("filename to optionally save input and output variants"),
      clipp::option("--pos").set(param.pos).doc("set objective to minimize variation positions rather than variant count")
     );
 
@@ -81,6 +85,7 @@ void parseandSave_ILP(int argc, char** argv, Parameters &param)
   std::cout << "INFO, VF::parseandSave, delta = " << param.delta << std::endl;
   std::cout << "INFO, VF::parseandSave, vcf file = " << param.vcffile << std::endl;
   std::cout << "INFO, VF::parseandSave, chromosome id = " << param.chr << std::endl;
+  if (param.prefix.length() > 0) std::cout << "INFO, VF::parseandSave, prefix = " << param.prefix << std::endl;
 
   if (! exists(param.vcffile))
   {
@@ -154,4 +159,73 @@ void printVariantGapStats (const std::vector<bool> &retained, const std::vector<
 
     std::cout<< "INFO, VF::printVariantGapStats, before: (min, mean, max) = (" << min1 << ", " << avg1 << ", " << max1 << ")\n";
     std::cout<< "INFO, VF::printVariantGapStats, after: (min, mean, max) = (" << min2 << ", " << avg2 << ", " << max2 << ")\n";
+}
+
+void print_SV_vcf (const std::vector<bool> &retained, const std::vector<int> &pos, const Parameters &param)
+{
+  srand(time(0)+1); int random = rand() % 100000;  
+  std::string tmp_file1 = ".VF." + std::to_string(random) + ".txt";
+  random = rand() % 100000;  
+  std::string tmp_file2 = ".VF." + std::to_string(random) + ".txt";
+
+  std::ofstream myfile1 (tmp_file1);
+  for (std::size_t i = 0; i < pos.size(); i++) if(retained[i]) myfile1 << pos[i] << "\n";
+  myfile1.close();
+  std::cout << "INFO, VF::print_SV_vcf, written retained variant loci to " << tmp_file1 << "\n";
+
+  std::string cmd = "cat " + param.vcffile + " | grep '^#' > " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+  cmd = "cat " + param.vcffile + " | grep -vE '^#' | grep 'INS\\|DEL' | awk -v chr=" + param.chr + " '$1 == chr {print $0}' >> " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+
+  cmd = "cat " + param.vcffile + " | grep '^#' > " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+  cmd = "cat " + param.vcffile + " | grep -vE '^#' > " + tmp_file2; std::cout << cmd << "\n"; std::system(cmd.c_str());
+  cmd = "awk 'NR == FNR { a[$0]; next } $2 in a' " + tmp_file1 + " " + tmp_file2 + " >> " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+
+  cmd = "rm -f " + tmp_file1 + "*"; std::cout << cmd << "\n"; std::system(cmd.c_str()); //delete tmp file
+  cmd = "rm -f " + tmp_file2 + "*"; std::cout << cmd << "\n"; std::system(cmd.c_str()); //delete tmp file
+}
+
+void print_snp_vcf (const std::vector<bool> &retained, const std::vector<int> &pos, const Parameters &param)
+{
+  srand(time(0)+1); int random = rand() % 100000;  
+  std::string tmp_file1 = ".VF." + std::to_string(random) + ".txt";
+  random = rand() % 100000;  
+  std::string tmp_file2 = ".VF." + std::to_string(random) + ".txt";
+
+  std::ofstream myfile1 (tmp_file1);
+  for (std::size_t i = 0; i < pos.size(); i++) if(retained[i]) myfile1 << pos[i] << "\n";
+  myfile1.close();
+  std::cout << "INFO, VF::print_snp_vcf, written retained variant loci to " << tmp_file1 << "\n";
+
+  std::string cmd = "cat " + param.vcffile + " | grep '^#' > " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+  cmd = "cat " + param.vcffile + " | grep -vE '^#' | grep 'SNP' | awk -v chr=" + param.chr + " '$1 == chr {print $0}' >> " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+
+  cmd = "cat " + param.vcffile + " | grep '^#' > " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+  cmd = "cat " + param.vcffile + " | grep -vE '^#' > " + tmp_file2; std::cout << cmd << "\n"; std::system(cmd.c_str());
+  cmd = "awk 'NR == FNR { a[$0]; next } $2 in a' " + tmp_file1 + " " + tmp_file2 + " >> " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+
+  cmd = "rm -f " + tmp_file1 + "*"; std::cout << cmd << "\n"; std::system(cmd.c_str()); //delete tmp file
+  cmd = "rm -f " + tmp_file2 + "*"; std::cout << cmd << "\n"; std::system(cmd.c_str()); //delete tmp file
+}
+
+void print_snp_indel_vcf (const std::vector<bool> &retained, const std::vector<int> &pos, const Parameters &param)
+{
+  srand(time(0)+1); int random = rand() % 100000;  
+  std::string tmp_file1 = ".VF." + std::to_string(random) + ".txt";
+  random = rand() % 100000;  
+  std::string tmp_file2 = ".VF." + std::to_string(random) + ".txt";
+
+  std::ofstream myfile1 (tmp_file1);
+  for (std::size_t i = 0; i < pos.size(); i++) if(retained[i]) myfile1 << pos[i] << "\n";
+  myfile1.close();
+  std::cout << "INFO, VF::print_snp_indel_vcf, written retained variant loci to " << tmp_file1 << "\n";
+
+  std::string cmd = "cat " + param.vcffile + " | grep '^#' > " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+  cmd = "cat " + param.vcffile + " | grep -vE '^#' | grep 'SNP\\INDEL' | awk -v chr=" + param.chr + " '$1 == chr {print $0}' >> " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+
+  cmd = "cat " + param.vcffile + " | grep '^#' > " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+  cmd = "cat " + param.vcffile + " | grep -vE '^#' > " + tmp_file2; std::cout << cmd << "\n"; std::system(cmd.c_str());
+  cmd = "awk 'NR == FNR { a[$0]; next } $2 in a' " + tmp_file1 + " " + tmp_file2 + " >> " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+
+  cmd = "rm -f " + tmp_file1 + "*"; std::cout << cmd << "\n"; std::system(cmd.c_str()); //delete tmp file
+  cmd = "rm -f " + tmp_file2 + "*"; std::cout << cmd << "\n"; std::system(cmd.c_str()); //delete tmp file
 }
