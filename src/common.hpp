@@ -33,7 +33,7 @@ void parseandSave(int argc, char** argv, Parameters &param)
      clipp::required("-d") & clipp::value("delta", param.delta).doc("differences allowed (e.g., 10)"),
      clipp::required("-vcf") & clipp::value("file1", param.vcffile).doc("uncompressed vcf file (something.vcf)"),
      clipp::required("-chr") & clipp::value("id", param.chr).doc("chromosome id (e.g., 1 or chr1), make it consistent with vcf file"),
-     clipp::option("--prefix") & clipp::value("file2", param.prefix).doc("filename to optionally save input and output variants")
+     clipp::option("-prefix") & clipp::value("file2", param.prefix).doc("filename to optionally save input and output variants")
     );
 
   if(!clipp::parse(argc, argv, cli))
@@ -70,7 +70,7 @@ void parseandSave_ILP(int argc, char** argv, Parameters &param)
      clipp::required("-d") & clipp::value("delta", param.delta).doc("differences allowed (e.g., 10)"),
      clipp::required("-vcf") & clipp::value("file1", param.vcffile).doc("uncompressed vcf file (something.vcf)"),
      clipp::required("-chr") & clipp::value("id", param.chr).doc("chromosome id (e.g., 1 or chr1), make it consistent with vcf file"),
-     clipp::option("--prefix") & clipp::value("file2", param.prefix).doc("filename to optionally save input and output variants"),
+     clipp::option("-prefix") & clipp::value("file2", param.prefix).doc("filename to optionally save input and output variants"),
      clipp::option("--pos").set(param.pos).doc("set objective to minimize variation positions rather than variant count")
     );
 

@@ -25,18 +25,19 @@ After a successful compilation, expect executables named as `greedy_snp`, `lp_sn
 All the executables implement a variety of algorithms to achieve variant graph size reduction, but they all have a similar interface.
 ```
 SYNOPSIS
-        greedy_snp        -a <alpha> -d <delta> -vcf <file> -chr <id>
-        lp_snp            -a <alpha> -d <delta> -vcf <file> -chr <id>
-        greedy_snp_indels -a <alpha> -d <delta> -vcf <file> -chr <id>
-        ilp_snp_indels    -a <alpha> -d <delta> -vcf <file> -chr <id> [--pos]
-        greedy_sv         -a <alpha> -d <delta> -vcf <file> -chr <id>
-        ilp_sv            -a <alpha> -d <delta> -vcf <file> -chr <id> [--pos]
+        greedy_snp        -a <alpha> -d <delta> -vcf <file1> -chr <id> [-prefix <file2>]
+        lp_snp            -a <alpha> -d <delta> -vcf <file1> -chr <id> [-prefix <file2>]
+        greedy_snp_indels -a <alpha> -d <delta> -vcf <file1> -chr <id> [-prefix <file2>]
+        ilp_snp_indels    -a <alpha> -d <delta> -vcf <file1> -chr <id> [-prefix <file2>] [--pos]
+        greedy_sv         -a <alpha> -d <delta> -vcf <file1> -chr <id> [-prefix <file2>]
+        ilp_sv            -a <alpha> -d <delta> -vcf <file1> -chr <id> [-prefix <file2>] [--pos]
 
 
 OPTIONS
         <alpha>     path length in variation graph (e.g., 500)
         <delta>     differences allowed (e.g., 10)
-        <file>      uncompressed vcf file (something.vcf)
+        <file1>     uncompressed vcf file (something.vcf)
+        <file2>     filename to optionally save input and output variants
         <id>        chromosome id (e.g., 1 or chr1), make it consistent with vcf file
         --pos       set objective to minimize variation positions rather than variant count
 ```
