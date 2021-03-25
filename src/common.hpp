@@ -176,8 +176,8 @@ void print_SV_vcf (const std::vector<bool> &retained, const std::vector<int> &po
   std::string cmd = "cat " + param.vcffile + " | grep '^#' > " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
   cmd = "cat " + param.vcffile + " | grep -vE '^#' | grep 'INS\\|DEL' | awk -v chr=" + param.chr + " '$1 == chr {print $0}' >> " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
 
-  cmd = "cat " + param.vcffile + " | grep '^#' > " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
-  cmd = "cat " + param.vcffile + " | grep -vE '^#' > " + tmp_file2; std::cout << cmd << "\n"; std::system(cmd.c_str());
+  cmd = "cat " + param.prefix + ".inputrecords.vcf | grep '^#' > " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+  cmd = "cat " + param.prefix + ".inputrecords.vcf | grep -vE '^#' > " + tmp_file2; std::cout << cmd << "\n"; std::system(cmd.c_str());
   cmd = "awk 'NR == FNR { a[$0]; next } $2 in a' " + tmp_file1 + " " + tmp_file2 + " >> " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
 
   cmd = "rm -f " + tmp_file1 + "*"; std::cout << cmd << "\n"; std::system(cmd.c_str()); //delete tmp file
@@ -199,8 +199,9 @@ void print_snp_vcf (const std::vector<bool> &retained, const std::vector<int> &p
   std::string cmd = "cat " + param.vcffile + " | grep '^#' > " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
   cmd = "cat " + param.vcffile + " | grep -vE '^#' | grep 'SNP' | awk -v chr=" + param.chr + " '$1 == chr {print $0}' >> " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
 
-  cmd = "cat " + param.vcffile + " | grep '^#' > " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
-  cmd = "cat " + param.vcffile + " | grep -vE '^#' > " + tmp_file2; std::cout << cmd << "\n"; std::system(cmd.c_str());
+
+  cmd = "cat " + param.prefix + ".inputrecords.vcf | grep '^#' > " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+  cmd = "cat " + param.prefix + ".inputrecords.vcf | grep -vE '^#' > " + tmp_file2; std::cout << cmd << "\n"; std::system(cmd.c_str());
   cmd = "awk 'NR == FNR { a[$0]; next } $2 in a' " + tmp_file1 + " " + tmp_file2 + " >> " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
 
   cmd = "rm -f " + tmp_file1 + "*"; std::cout << cmd << "\n"; std::system(cmd.c_str()); //delete tmp file
@@ -222,8 +223,9 @@ void print_snp_indel_vcf (const std::vector<bool> &retained, const std::vector<i
   std::string cmd = "cat " + param.vcffile + " | grep '^#' > " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
   cmd = "cat " + param.vcffile + " | grep -vE '^#' | grep 'SNP\\|INDEL' | awk -v chr=" + param.chr + " '$1 == chr {print $0}' >> " + param.prefix + ".inputrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
 
-  cmd = "cat " + param.vcffile + " | grep '^#' > " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
-  cmd = "cat " + param.vcffile + " | grep -vE '^#' > " + tmp_file2; std::cout << cmd << "\n"; std::system(cmd.c_str());
+
+  cmd = "cat " + param.prefix + ".inputrecords.vcf | grep '^#' > " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
+  cmd = "cat " + param.prefix + ".inputrecords.vcf | grep -vE '^#' > " + tmp_file2; std::cout << cmd << "\n"; std::system(cmd.c_str());
   cmd = "awk 'NR == FNR { a[$0]; next } $2 in a' " + tmp_file1 + " " + tmp_file2 + " >> " + param.prefix + ".retainedrecords.vcf"; std::cout << cmd << "\n"; std::system(cmd.c_str());
 
   cmd = "rm -f " + tmp_file1 + "*"; std::cout << cmd << "\n"; std::system(cmd.c_str()); //delete tmp file
