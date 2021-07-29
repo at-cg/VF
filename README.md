@@ -50,4 +50,4 @@ We evaluated the magnitude of graph reduction achieved in human chromosome varia
 
 ## Publications
 
-- **Chirag Jain, Neda Tavakoli and Srinivas Aluru**. "[A variant selection framework for genome graphs](https://doi.org/10.1101/2021.02.02.429378)". *bioRxiv 2021*.
+- **Chirag Jain, Neda Tavakoli and Srinivas Aluru**. "[A variant selection framework for genome graphs](https://doi.org/10.1093/bioinformatics/btab302)". *ISMB/ECCB 2021*.
